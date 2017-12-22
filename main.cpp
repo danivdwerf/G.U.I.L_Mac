@@ -4,14 +4,14 @@
 
 void callback()
 {
-    std::cout << "Nice ass boi" << '\n';
+    std::cout << "callback called" << '\n';
 }
 
 int main(int argc, char* argv[])
 {
   Window* window = new Window("Hoppakee", 0, 0, 640, 360);
-  // Menu* assMenu = new Menu("STOP!", callback, "a");
-  // window->addMenu(assMenu);
+  // Menu* testMenu = new Menu("STOP!", callbackc, "a");
+  // window->addMenu(testMenu);
   window->run();
   return 0;
 }
