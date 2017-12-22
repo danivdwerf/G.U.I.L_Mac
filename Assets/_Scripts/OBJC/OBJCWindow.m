@@ -1,21 +1,26 @@
 #import "FWindow.m"
 #import "Colour.m"
+#import "MainMenu.m"
+#import "MenuItem.m"
+#import "Menu.m"
 
 @interface OBJCWindow : NSObject
 {
   FWindow* window;
-  NSMenu* mainMenu;
-  NSMutableArray* menuItems;
+  // NSMenu* mainMenu;
+  // NSMutableArray* menuItems;
 }
+-(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h;
+-(void)createWindow:(const char*)title :(int)x :(int)y :(int)w :(int)h;
 @end
 
 @implementation OBJCWindow
--(id)init:(const char*)title :(int)x :(int)y :(int)w :(int)h
+-(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h
 {
   if (!(self = [super init]))
     return nil;
 
-  [menuItems init];
+  // [menuItems init];
   [self createWindow:title:x:y:w:h];
   return self;
 }
@@ -26,25 +31,28 @@
   NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
   NSString* appTitle = [NSString stringWithUTF8String: title];
 
-  //Create main Menu
+  //Main application
   NSApplication* application = [NSApplication sharedApplication];
   [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
   [NSApp finishLaunching];
 
-  //Create Main menu
-  self->mainMenu = [[NSMenu new] autorelease];
-  NSMenuItem* emptyMenuItem = [[NSMenuItem new] autorelease];
-  [self->mainMenu addItem:emptyMenuItem];
-  [NSApp setMainMenu:self->mainMenu];
+  //Main menubar
+  // self->mainMenu = [[NSMenu new] autorelease];
+  // NSMenuItem* emptyMenuItem = [[NSMenuItem new] autorelease];
+  // [self->mainMenu addItem:emptyMenuItem];
+  // [NSApp setMainMenu:self->mainMenu];
+  MainMenu* mainMenu = [[MainMenu alloc] init];
+  [NSApp setMainMenu:[mainMenu Object]];
 
   //First item
-  NSMenu* firstMenuItem = [[NSMenu new] autorelease];
-  [emptyMenuItem setSubmenu:firstMenuItem];
+  Menu* firstMenuItem = [[Menu alloc] init];
+  [mainMenu addMenuToBar:firstMenuItem];
 
-  NSString* quitTitle = @"Quit";
-  NSMenuItem* quitMenuItem = [[[NSMenuItem alloc] initWithTitle:quitTitle action:@selector(terminate:) keyEquivalent:@"q"] autorelease];
-  [firstMenuItem addItem:quitMenuItem];
-  [self->menuItems addObject:quitMenuItem];
+  MenuItem* test = [[MenuItem alloc] initWithTitle:"Test" action:@selector(terminate:) key:"a"];
+  [firstMenuItem addMenuItem:test];
+
+  MenuItem* quitMenuItem = [[MenuItem alloc] initWithTitle:"Quit" action:@selector(terminate:) key:"q"];
+  [firstMenuItem addMenuItem:quitMenuItem];
 
   NSRect frame = NSMakeRect(x, y, w, h);
   NSUInteger windowStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable;
@@ -57,8 +65,6 @@
   [self->window setBackgroundColor: [Colour colourWithRedInt:200 green:77 blue:77 alpha:255]];
 
   NSWindowController* windowController = [[[NSWindowController alloc] initWithWindow:self->window] autorelease];
-  // Hide window
-  // [self->window orderOut: self];
 
   // Close window
   // [self->window close];
@@ -68,7 +74,6 @@
 
 -(void)run
 {
-  [NSApp activateIgnoringOtherApps:YES];
   [NSApp run];
 }
 @end
