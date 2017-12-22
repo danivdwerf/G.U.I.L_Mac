@@ -1,4 +1,5 @@
-#import "FWindow.mm"
+#import "FWindow.m"
+#import "Colour.m"
 
 @interface OBJCWindow : NSObject
 {
@@ -51,11 +52,11 @@
 
   self->window = [[[FWindow alloc] initWithContentRect:rect styleMask:windowStyle backing:NSBackingStoreBuffered defer:NO] autorelease];
   [self->window makeKeyAndOrderFront: self->window];
-  // [self->window setBackgroundColor: bg];
   [self->window setTitle:appTitle];
 
-  NSWindowController* windowController = [[[NSWindowController alloc] initWithWindow:self->window] autorelease];
+  [self->window setBackgroundColor: [Colour colourWithRedInt:200 green:77 blue:77 alpha:255]];
 
+  NSWindowController* windowController = [[[NSWindowController alloc] initWithWindow:self->window] autorelease];
   // Hide window
   // [self->window orderOut: self];
 

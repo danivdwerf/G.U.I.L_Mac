@@ -1,7 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#import "OBJCWindow.m"
+#import "../OBJC/OBJCWindow.m"
 
 class Window
 {
