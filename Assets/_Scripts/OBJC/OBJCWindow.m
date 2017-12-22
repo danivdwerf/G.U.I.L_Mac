@@ -1,5 +1,5 @@
 #import "FWindow.m"
-#import "Colour.m"
+#import "OBJCColour.m"
 #import "MainMenu.m"
 #import "MenuItem.m"
 #import "Menu.m"
@@ -20,7 +20,6 @@
   if (!(self = [super init]))
     return nil;
 
-  // [menuItems init];
   [self createWindow:title:x:y:w:h];
   return self;
 }
@@ -62,7 +61,9 @@
   [self->window makeKeyAndOrderFront: self->window];
   [self->window setTitle:appTitle];
 
-  [self->window setBackgroundColor: [Colour colourWithRedInt:200 green:77 blue:77 alpha:255]];
+  // [self->window setBackgroundColor: [OBJCColour colourWithRedInt:200 green:77 blue:77 alpha:255]];
+  OBJCColour* bg = [[OBJCColour alloc] colourWithRedInt:200 green:77 blue:77 alpha:255];
+  [self setBackgroundColor: bg];
 
   NSWindowController* windowController = [[[NSWindowController alloc] initWithWindow:self->window] autorelease];
 
@@ -70,6 +71,11 @@
   // [self->window close];
   [self->window orderFrontRegardless];
   [pool drain];
+}
+
+-(void)setBackgroundColor:(OBJCColour*)colour
+{
+    [self->window setBackgroundColor: [colour Value]];
 }
 
 -(void)run
