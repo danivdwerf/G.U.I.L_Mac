@@ -1,13 +1,15 @@
 #import "Cocoa/Cocoa.h"
 #import "MenuItem.m"
+
+@class MenuItem;
 @interface Menu : NSObject
 {
   NSMenu* menuObject;
-  NSMutableArray* menuItems;
 }
 -(id)init;
+-(id)initWithTitle:(const char*)title;
 -(void)addMenuItem:(MenuItem*)itemToAdd;
--(NSMenu*)Object;
+-(NSMenu*)menu;
 @end
 
 @implementation Menu
@@ -16,17 +18,27 @@
   if(!(self = [super init]))
     return nil;
 
-  self->menuObject = [[NSMenu new] autorelease];
+  self->menuObject = [[NSMenu alloc] autorelease];
+
+  return self;
+}
+
+-(id)initWithTitle:(const char*)t
+{
+  if(!(self = [super init]))
+    return nil;
+
+  NSString* title = [NSString stringWithUTF8String: t];
+  self->menuObject = [[NSMenu alloc] initWithTitle:title];
 
   return self;
 }
 
 -(void)addMenuItem:(MenuItem*)itemToAdd
 {
-  NSMenuItem* tmpItem = [itemToAdd Object];
+  NSMenuItem* tmpItem = [itemToAdd menuItem];
   [self->menuObject addItem:tmpItem];
-  [self->menuItems addObject:tmpItem];
 }
 
--(NSMenu*)Object{return self->menuObject;}
+-(NSMenu*)menu{return self->menuObject;}
 @end

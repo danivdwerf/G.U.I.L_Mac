@@ -1,8 +1,8 @@
 #import "FWindow.m"
 #import "Colour.m"
-#import "MainMenu.m"
 #import "MenuItem.m"
 #import "Menu.m"
+#import "MainMenu.m"
 
 @interface OBJCWindow : NSObject
 {
@@ -36,23 +36,29 @@
   [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
   [NSApp finishLaunching];
 
-  //Main menubar
-  // self->mainMenu = [[NSMenu new] autorelease];
-  // NSMenuItem* emptyMenuItem = [[NSMenuItem new] autorelease];
-  // [self->mainMenu addItem:emptyMenuItem];
-  // [NSApp setMainMenu:self->mainMenu];
+  //Main Menu
   MainMenu* mainMenu = [[MainMenu alloc] init];
-  [NSApp setMainMenu:[mainMenu Object]];
 
-  //First item
-  Menu* firstMenuItem = [[Menu alloc] init];
-  [mainMenu addMenuToBar:firstMenuItem];
+  MenuItem* programItem = [[MenuItem alloc] init];
+  [mainMenu addMenuItemToBar: programItem];
 
-  MenuItem* test = [[MenuItem alloc] initWithTitle:"Test" action:@selector(terminate:) key:"a"];
-  [firstMenuItem addMenuItem:test];
+  Menu* programMenu = [[Menu alloc] init];
+  [programItem setSubmenu:programMenu];
 
-  MenuItem* quitMenuItem = [[MenuItem alloc] initWithTitle:"Quit" action:@selector(terminate:) key:"q"];
-  [firstMenuItem addMenuItem:quitMenuItem];
+  MenuItem* quitItem = [[MenuItem alloc] initWithTitle:"Quit" action:@selector(terminate:) key:"q"];
+  [programMenu addMenuItem:quitItem];
+
+
+  MenuItem* fileItem = [[MenuItem alloc] init];
+  [mainMenu addMenuItemToBar:fileItem];
+
+  Menu* fileMenu = [[Menu alloc] initWithTitle:"File"];
+  [fileItem setSubmenu:fileMenu];
+
+  MenuItem* newItem = [[MenuItem alloc] initWithTitle:"New" action:NULL key:"n"];
+  [fileMenu addMenuItem:newItem];
+
+  [NSApp setMainMenu:[mainMenu mainMenu]];
 
   NSRect frame = NSMakeRect(x, y, w, h);
   NSUInteger windowStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable;
