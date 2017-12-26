@@ -1,7 +1,7 @@
-@interface Colour : NSObject
+@interface OBJCColour : NSObject
 @end
 
-@implementation Colour
+@implementation OBJCColour
 +(NSColor*)colourWithRedFloat:(float)r green:(float)g blue:(float)b alpha:(float)a
 {
   return [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a];

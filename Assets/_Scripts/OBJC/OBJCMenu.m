@@ -1,18 +1,18 @@
 #import "Cocoa/Cocoa.h"
-#import "MenuItem.m"
+#import "OBJCMenuItem.m"
 
-@class MenuItem;
-@interface Menu : NSObject
+@class OBJCMenuItem;
+@interface OBJCMenu : NSObject
 {
   NSMenu* menuObject;
 }
 -(id)init;
 -(id)initWithTitle:(const char*)title;
--(void)addMenuItem:(MenuItem*)itemToAdd;
+-(void)addMenuItem:(OBJCMenuItem*)itemToAdd;
 -(NSMenu*)menu;
 @end
 
-@implementation Menu
+@implementation OBJCMenu
 -(id)init
 {
   if(!(self = [super init]))
@@ -34,7 +34,7 @@
   return self;
 }
 
--(void)addMenuItem:(MenuItem*)itemToAdd
+-(void)addMenuItem:(OBJCMenuItem*)itemToAdd
 {
   NSMenuItem* tmpItem = [itemToAdd menuItem];
   [self->menuObject addItem:tmpItem];

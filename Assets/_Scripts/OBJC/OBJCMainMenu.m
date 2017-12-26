@@ -1,17 +1,17 @@
 #import "Cocoa/Cocoa.h"
-#import "MenuItem.m"
+#import "OBJCMenuItem.m"
 
-@interface MainMenu : NSObject
+@interface OBJCMainMenu : NSObject
 {
   NSMenu* menuObject;
 }
 
 -(id)init;
 -(NSMenu*)mainMenu;
--(void)addMenuItemToBar:(MenuItem*)menuToAdd;
+-(void)addMenuItemToBar:(OBJCMenuItem*)menuToAdd;
 @end
 
-@implementation MainMenu
+@implementation OBJCMainMenu
 
 -(id)init
 {
@@ -24,7 +24,7 @@
 
 -(NSMenu*)mainMenu{return self->menuObject;}
 
--(void)addMenuItemToBar:(MenuItem*)menuToAdd
+-(void)addMenuItemToBar:(OBJCMenuItem*)menuToAdd
 {
   [self->menuObject addItem:[menuToAdd menuItem]];
 }
