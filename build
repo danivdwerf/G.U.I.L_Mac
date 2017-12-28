@@ -1,0 +1,1 @@
+g++ -x objective-c++ main.cpp -o prog -framework Cocoa
