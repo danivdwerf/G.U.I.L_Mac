@@ -12,6 +12,11 @@ class Window
     this->window = [[OBJCWindow alloc] initWithTitle:title xPos:x yPos:y width:w height:h];
   }
 
+  public: void addMenu(OBJCMenuItem* itemToAdd)
+  {
+    [this->window addMenu:itemToAdd];
+  }
+
   public: void run()
   {
     [this->window run];

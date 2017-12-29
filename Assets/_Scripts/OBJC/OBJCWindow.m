@@ -7,8 +7,7 @@
 @interface OBJCWindow : NSObject
 {
   FWindow* window;
-  // NSMenu* mainMenu;
-  // NSMutableArray* menuItems;
+  OBJCMainMenu* mainMenu;
 }
 -(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h;
 -(void)createWindow:(const char*)title :(int)x :(int)y :(int)w :(int)h;
@@ -43,10 +42,10 @@
   [NSApp finishLaunching];
 
   //Main OBJCMenu
-  OBJCMainMenu* mainMenu = [[OBJCMainMenu alloc] init];
+  self->mainMenu = [[OBJCMainMenu alloc] init];
 
   OBJCMenuItem* programItem = [[OBJCMenuItem alloc] init];
-  [mainMenu addMenuItemToBar: programItem];
+  [self->mainMenu addMenuItemToBar: programItem];
 
   OBJCMenu* programMenu = [[OBJCMenu alloc] init];
   [programItem setSubmenu:programMenu];
@@ -63,7 +62,7 @@
   // OBJCMenuItem* newItem = [[OBJCMenuItem alloc] initWithTitle:"New" callback:newFile key:"n"];
   // [fileMenu addMenuItem:newItem];
 
-  [NSApp setMainMenu:[mainMenu mainMenu]];
+  [NSApp setMainMenu:[self->mainMenu mainMenu]];
 
   NSRect frame = NSMakeRect(x, y, w, h);
   NSUInteger windowStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable;
@@ -81,6 +80,11 @@
   // [self->window close];
   [self->window orderFrontRegardless];
   [pool drain];
+}
+
+-(void)addMenu:(OBJCMenuItem*)itemToAdd
+{
+  [self->mainMenu addMenuItemToBar: itemToAdd];
 }
 
 -(void)run

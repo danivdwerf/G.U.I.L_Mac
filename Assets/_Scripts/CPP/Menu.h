@@ -1,6 +1,5 @@
 #ifndef MENU_H
 #define MENU_H
-#include "MenuItem.h"
 
 class Menu
 {
@@ -17,9 +16,9 @@ class Menu
     this->wrapped = [[OBJCMenu alloc] initWithTitle:title];
   }
 
-  public: void addMenuItem(MenuItem* itemToAdd)
+  public: void addMenuItem(OBJCMenuItem* itemToAdd)
   {
-    [this->wrapped addMenuItem:itemToAdd->Object()];
+    [this->wrapped addMenuItem:itemToAdd];
   }
 };
 #endif

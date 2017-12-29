@@ -16,9 +16,9 @@ class MenuItem
     this->wrapped = [[OBJCMenuItem alloc] initWithTitle:title callback:c key:k];
   }
 
-  public: void setSubmenu(Menu* menu)
+  public: void setSubmenu(OBJCMenu* menu)
   {
-    [this->wrapped setSubmenu:menu->Object()];
+    [this->wrapped setSubmenu:menu];
   }
 };
 

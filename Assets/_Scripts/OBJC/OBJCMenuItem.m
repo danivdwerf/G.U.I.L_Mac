@@ -52,7 +52,6 @@
 
 -(void)onClick:(id)sender
 {
-  NSLog(@"Clicked");
   if(self->callback == NULL)
     return;
 
