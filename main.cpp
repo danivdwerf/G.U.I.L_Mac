@@ -2,7 +2,7 @@
 #include "Assets/_Scripts/CPP/Window.h"
 #include "Assets/_Scripts/CPP/Menu.h"
 #include "Assets/_Scripts/CPP/MenuItem.h"
-// #include "Assets/_Scripts/CPP/MainMenu.h"
+#include "Assets/_Scripts/CPP/MainMenu.h"
 
 void callback()
 {
@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 
   MenuItem* fileItem = new MenuItem();
   Menu* fileMenu = new Menu("File");
-  fileItem->setSubmenu(fileMenu->Object());
+  fileItem->setSubmenu(fileMenu);
 
   MenuItem* stopMenu = new MenuItem("STOP!", callback, "s");
   fileMenu->addMenuItem(stopMenu->Object());

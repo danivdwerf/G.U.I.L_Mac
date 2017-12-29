@@ -53,16 +53,8 @@
   OBJCMenuItem* quitItem = [[OBJCMenuItem alloc] initWithTitle:"Quit" action:@selector(terminate:) key:"q"];
   [programMenu addMenuItem:quitItem];
 
-  // OBJCMenuItem* fileItem = [[OBJCMenuItem alloc] init];
-  // [mainMenu addMenuItemToBar:fileItem];
-  //
-  // OBJCMenu* fileMenu = [[OBJCMenu alloc] initWithTitle:"File"];
-  // [fileItem setSubmenu:fileMenu];
-  //
-  // OBJCMenuItem* newItem = [[OBJCMenuItem alloc] initWithTitle:"New" callback:newFile key:"n"];
-  // [fileMenu addMenuItem:newItem];
-
   [NSApp setMainMenu:[self->mainMenu mainMenu]];
+
 
   NSRect frame = NSMakeRect(x, y, w, h);
   NSUInteger windowStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable;
@@ -75,6 +67,13 @@
   [self->window setBackgroundColor: [OBJCColour colourWithRedInt:200 green:77 blue:77 alpha:255]];
 
   NSWindowController* windowController = [[[NSWindowController alloc] initWithWindow:self->window] autorelease];
+
+  // NSRect buttonFrame = NSMakeRect(100, 100, 200, 100);
+  // NSButton* button = [[[NSButton alloc] initWithFrame:buttonFrame]autorelease];
+  // [button setTitle: @"TEST"];
+  // [[self->window contentView] addSubview:button];
+  // [button setTarget:self];
+  // [button setAction:@selector(buttonPressed)];
 
   // Close window
   // [self->window close];

@@ -1,6 +1,8 @@
 #ifndef MENUITEM_H
 #define MENUITEM_H
 
+#include "Menu.h"
+
 class MenuItem
 {
   private: OBJCMenuItem* wrapped;
@@ -16,9 +18,9 @@ class MenuItem
     this->wrapped = [[OBJCMenuItem alloc] initWithTitle:title callback:c key:k];
   }
 
-  public: void setSubmenu(OBJCMenu* menu)
+  public: void setSubmenu(Menu* menu)
   {
-    [this->wrapped setSubmenu:menu];
+    [this->wrapped setSubmenu:menu->Object()];
   }
 };
 
