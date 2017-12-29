@@ -5,7 +5,8 @@
 
 class Window
 {
-  OBJCWindow* window;
+  private: OBJCWindow* window;
+  public: OBJCWindow* Object()const{return this->window;}
 
   public: Window(const char* title, int x, int y, int w, int h)
   {

@@ -3,6 +3,7 @@
 #import "OBJCMenuItem.m"
 #import "OBJCMenu.m"
 #import "OBJCMainMenu.m"
+#import "OBJCButton.m"
 
 @interface OBJCWindow : NSObject
 {
@@ -11,7 +12,8 @@
 }
 -(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h;
 -(void)createWindow:(const char*)title :(int)x :(int)y :(int)w :(int)h;
--(void)newFile:(id)sender;
+-(void)addMenu:(OBJCMenuItem*)itemToAdd;
+-(FWindow*)Object;
 @end
 
 @implementation OBJCWindow
@@ -25,16 +27,11 @@
   return self;
 }
 
--(void)newFile:(id)sender
-{
-  NSLog(@"Create new file pls");
-}
-
 -(void)createWindow:(const char*)title :(int)x :(int)y :(int)w :(int)h
 {
   //Pool?
   NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-  NSString* appTitle = [NSString stringWithUTF8String: title];
+  NSString* appTitle = [NSString stringWithUTF8String:title];
 
   //Main application
   NSApplication* application = [NSApplication sharedApplication];
@@ -68,17 +65,18 @@
 
   NSWindowController* windowController = [[[NSWindowController alloc] initWithWindow:self->window] autorelease];
 
-  // NSRect buttonFrame = NSMakeRect(100, 100, 200, 100);
-  // NSButton* button = [[[NSButton alloc] initWithFrame:buttonFrame]autorelease];
-  // [button setTitle: @"TEST"];
-  // [[self->window contentView] addSubview:button];
-  // [button setTarget:self];
-  // [button setAction:@selector(buttonPressed)];
+  // OBJCButton* btn = [[OBJCButton alloc] initWithTitle:"Click for free singles" xPos:100 yPos:100 width:150 height:50 callback:NULL];
+  // [btn show:self->window];
 
   // Close window
   // [self->window close];
   [self->window orderFrontRegardless];
   [pool drain];
+}
+
+-(FWindow*)Object
+{
+  return self->window;
 }
 
 -(void)addMenu:(OBJCMenuItem*)itemToAdd
