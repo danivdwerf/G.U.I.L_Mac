@@ -8,7 +8,12 @@
 
 void callback()
 {
-    std::cout << "callback called" << '\n';
+    std::cout << "FLOTS!" << '\n';
+}
+
+void createFile()
+{
+  std::cout << "Create A file" << '\n';
 }
 
 int main(int argc, char* argv[])
@@ -21,11 +26,11 @@ int main(int argc, char* argv[])
   Menu* fileMenu = new Menu("File");
   fileItem->setSubmenu(fileMenu);
 
-  MenuItem* stopMenu = new MenuItem("STOP!", callback, "s");
+  MenuItem* stopMenu = new MenuItem("New", createFile, "n");
   fileMenu->addMenuItem(stopMenu->Object());
 
-  Button* btn = new Button("FLOP", 100, 100, 100, 50, callback);
-  btn->show(window);
+  Button* btn2 = new Button("/Users/danivanderwerf/Documents/Personal/converter/images/logo.png", 5, 5, callback);
+  btn2->show(window);
 
   window->run();
   return 0;

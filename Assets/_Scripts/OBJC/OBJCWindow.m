@@ -65,9 +65,6 @@
 
   NSWindowController* windowController = [[[NSWindowController alloc] initWithWindow:self->window] autorelease];
 
-  // OBJCButton* btn = [[OBJCButton alloc] initWithTitle:"Click for free singles" xPos:100 yPos:100 width:150 height:50 callback:NULL];
-  // [btn show:self->window];
-
   // Close window
   // [self->window close];
   [self->window orderFrontRegardless];

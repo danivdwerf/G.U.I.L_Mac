@@ -18,6 +18,11 @@ class Button
     this->wrapped = [[OBJCButton alloc] initWithTitle:t frame:rect->Object() callback:c];
   }
 
+  public: Button(const char* path, int x, int y, void(*c)())
+  {
+    this->wrapped = [[OBJCButton alloc] initWithImagePath:path xPos:x yPos:y callback:c];
+  }
+
   public: void show(Window* window)
   {
     [this->wrapped show:[window->Object() Object]];
