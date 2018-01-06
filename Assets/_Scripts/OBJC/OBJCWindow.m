@@ -71,9 +71,9 @@
   return self->window;
 }
 
--(void)setBackgroundColor:(OBJCColour*)colour
+-(void)setBackgroundColor:(NSColor*)colour
 {
-  [self->window setBackgroundColor: [colour Value]];
+  [self->window setBackgroundColor: colour];
 }
 
 -(void)addMenu:(OBJCMenuItem*)itemToAdd

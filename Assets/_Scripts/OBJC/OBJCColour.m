@@ -1,4 +1,6 @@
 @interface OBJCColour : NSObject
++(NSColor*)colourWithRedFloat:(float)r green:(float)g blue:(float)b alpha:(float)a;
++(NSColor*)colourWithRedInt:(int)r green:(int)g blue:(int)b alpha:(int)a;
 @end
 
 @implementation OBJCColour
