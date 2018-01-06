@@ -1,15 +1,9 @@
 #include <iostream>
-#include "Assets/_Scripts/CPP/Window.h"
-#include "Assets/_Scripts/CPP/Colour.h"
-#include "Assets/_Scripts/CPP/Menu.h"
-#include "Assets/_Scripts/CPP/MenuItem.h"
-#include "Assets/_Scripts/CPP/MainMenu.h"
-#include "Assets/_Scripts/CPP/GRect.h"
-#include "Assets/_Scripts/CPP/Button.h"
+#include "Assets/_Scripts/GUIL.h"
 
 void callback()
 {
-    std::cout << "FLOTS!" << '\n';
+  exit(0);
 }
 
 void createFile()
@@ -32,8 +26,8 @@ int main(int argc, char* argv[])
   MenuItem* stopMenu = new MenuItem("New", createFile, "n");
   fileMenu->addMenuItem(stopMenu->Object());
 
-  Button* btn2 = new Button("/Users/danivanderwerf/Documents/Personal/converter/images/logo.png", 5, 5, callback);
-  btn2->show(window);
+  Button* btn = new Button("YAYY", 5, 5, 100, 30, callback);
+  btn->show(window);
 
   window->run();
   return 0;
