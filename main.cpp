@@ -18,7 +18,7 @@ void createFile()
 
 int main(int argc, char* argv[])
 {
-  Window* window = new Window("Hoppakee", 0, 0, 640, 360);
+  Window* window = new Window("Hoppakee", 0, 0, 640, 360, WINDOWSTYLE_TITLED | WINDOWSTYLE_CLOSABLE | WINDOWSTYLE_RESIZABLE);
 
   MenuItem* fileItem = new MenuItem();
   window->addMenu(fileItem->Object());

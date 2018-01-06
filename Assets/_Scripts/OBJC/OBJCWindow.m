@@ -10,25 +10,17 @@
   FWindow* window;
   OBJCMainMenu* mainMenu;
 }
--(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h;
--(void)createWindow:(const char*)title :(int)x :(int)y :(int)w :(int)h;
+-(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h style:(int8_t)s;
 -(void)addMenu:(OBJCMenuItem*)itemToAdd;
 -(FWindow*)Object;
 @end
 
 @implementation OBJCWindow
--(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h
+-(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h style:(int8_t)s
 {
   if (!(self = [super init]))
     return nil;
 
-  // [menuItems init];
-  [self createWindow:title:x:y:w:h];
-  return self;
-}
-
--(void)createWindow:(const char*)title :(int)x :(int)y :(int)w :(int)h
-{
   //Pool?
   NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
   NSString* appTitle = [NSString stringWithUTF8String:title];
@@ -54,10 +46,11 @@
 
 
   NSRect frame = NSMakeRect(x, y, w, h);
-  NSUInteger windowStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable;
-  NSRect rect = [FWindow contentRectForFrameRect:frame styleMask:windowStyle];
+  NSRect rect = [FWindow contentRectForFrameRect:frame styleMask:s];
 
-  self->window = [[[FWindow alloc] initWithContentRect:rect styleMask:windowStyle backing:NSBackingStoreBuffered defer:NO] autorelease];
+  // NSLog(@"%i", NSWindowStyleMaskBorderless);
+
+  self->window = [[[FWindow alloc] initWithContentRect:rect styleMask:s backing:NSBackingStoreBuffered defer:NO] autorelease];
   [self->window makeKeyAndOrderFront: self->window];
   [self->window setTitle:appTitle];
 
@@ -69,6 +62,8 @@
   // [self->window close];
   [self->window orderFrontRegardless];
   [pool drain];
+
+  return self;
 }
 
 -(FWindow*)Object
