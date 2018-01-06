@@ -1,69 +1,60 @@
 #import "FWindow.m"
 #import "OBJCColour.m"
-#import "MainMenu.m"
-#import "MenuItem.m"
-#import "Menu.m"
+#import "OBJCMenuItem.m"
+#import "OBJCMenu.m"
+#import "OBJCMainMenu.m"
+#import "OBJCButton.m"
 
 @interface OBJCWindow : NSObject
 {
   FWindow* window;
-  // NSMenu* mainMenu;
-  // NSMutableArray* menuItems;
+  OBJCMainMenu* mainMenu;
 }
--(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h;
--(void)createWindow:(const char*)title :(int)x :(int)y :(int)w :(int)h;
+-(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h style:(int8_t)s;
+-(void)addMenu:(OBJCMenuItem*)itemToAdd;
+-(FWindow*)Object;
 @end
 
 @implementation OBJCWindow
--(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h
+-(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h style:(int8_t)s
 {
   if (!(self = [super init]))
     return nil;
 
-  [self createWindow:title:x:y:w:h];
-  return self;
-}
-
--(void)createWindow:(const char*)title :(int)x :(int)y :(int)w :(int)h
-{
   //Pool?
   NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
-  NSString* appTitle = [NSString stringWithUTF8String: title];
+  NSString* appTitle = [NSString stringWithUTF8String:title];
 
   //Main application
   NSApplication* application = [NSApplication sharedApplication];
   [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
   [NSApp finishLaunching];
 
-  //Main menubar
-  // self->mainMenu = [[NSMenu new] autorelease];
-  // NSMenuItem* emptyMenuItem = [[NSMenuItem new] autorelease];
-  // [self->mainMenu addItem:emptyMenuItem];
-  // [NSApp setMainMenu:self->mainMenu];
-  MainMenu* mainMenu = [[MainMenu alloc] init];
-  [NSApp setMainMenu:[mainMenu Object]];
+  //Main OBJCMenu
+  self->mainMenu = [[OBJCMainMenu alloc] init];
 
-  //First item
-  Menu* firstMenuItem = [[Menu alloc] init];
-  [mainMenu addMenuToBar:firstMenuItem];
+  OBJCMenuItem* programItem = [[OBJCMenuItem alloc] init];
+  [self->mainMenu addMenuItemToBar: programItem];
 
-  MenuItem* test = [[MenuItem alloc] initWithTitle:"Test" action:@selector(terminate:) key:"a"];
-  [firstMenuItem addMenuItem:test];
+  OBJCMenu* programMenu = [[OBJCMenu alloc] init];
+  [programItem setSubmenu:programMenu];
 
-  MenuItem* quitMenuItem = [[MenuItem alloc] initWithTitle:"Quit" action:@selector(terminate:) key:"q"];
-  [firstMenuItem addMenuItem:quitMenuItem];
+  OBJCMenuItem* quitItem = [[OBJCMenuItem alloc] initWithTitle:"Quit" action:@selector(terminate:) key:"q"];
+  [programMenu addMenuItem:quitItem];
+
+  [NSApp setMainMenu:[self->mainMenu mainMenu]];
+
 
   NSRect frame = NSMakeRect(x, y, w, h);
-  NSUInteger windowStyle = NSWindowStyleMaskTitled | NSWindowStyleMaskClosable | NSWindowStyleMaskResizable;
-  NSRect rect = [FWindow contentRectForFrameRect:frame styleMask:windowStyle];
+  NSRect rect = [FWindow contentRectForFrameRect:frame styleMask:s];
 
-  self->window = [[[FWindow alloc] initWithContentRect:rect styleMask:windowStyle backing:NSBackingStoreBuffered defer:NO] autorelease];
+  // NSLog(@"%i", NSWindowStyleMaskBorderless);
+
+  self->window = [[[FWindow alloc] initWithContentRect:rect styleMask:s backing:NSBackingStoreBuffered defer:NO] autorelease];
   [self->window makeKeyAndOrderFront: self->window];
   [self->window setTitle:appTitle];
 
-  // [self->window setBackgroundColor: [OBJCColour colourWithRedInt:200 green:77 blue:77 alpha:255]];
-  OBJCColour* bg = [[OBJCColour alloc] colourWithRedInt:200 green:77 blue:77 alpha:255];
-  [self setBackgroundColor: bg];
+  [self->window setBackgroundColor: [OBJCColour colourWithRedInt:200 green:77 blue:77 alpha:255]];
 
   NSWindowController* windowController = [[[NSWindowController alloc] initWithWindow:self->window] autorelease];
 
@@ -71,11 +62,23 @@
   // [self->window close];
   [self->window orderFrontRegardless];
   [pool drain];
+
+  return self;
+}
+
+-(FWindow*)Object
+{
+  return self->window;
 }
 
 -(void)setBackgroundColor:(OBJCColour*)colour
 {
-    [self->window setBackgroundColor: [colour Value]];
+  [self->window setBackgroundColor: [colour Value]];
+}
+
+-(void)addMenu:(OBJCMenuItem*)itemToAdd
+{
+  [self->mainMenu addMenuItemToBar: itemToAdd];
 }
 
 -(void)run
