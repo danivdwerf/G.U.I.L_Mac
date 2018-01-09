@@ -19,30 +19,12 @@ class Button
   private: OBJCButton* wrapped;
   public: OBJCButton* Object()const{return this->wrapped;}
 
-  private: int8_t type;
-  public: int8_t Type()const{return this->type;}
+  public: int8_t Type()const{return [wrapped Type];}
+  public: bool Value()const{return [wrapped Value];}
 
-  public: Button(const char* t, int x, int y, int w, int h, int8_t type, void(*c)())
-  {
-    this->wrapped = [[OBJCButton alloc] initWithTitle:t xPos:x yPos:y width:w height:h type:type callback:c];
-    this->type = type;
-  }
-
-  public: Button(const char* t, GRect* rect, int8_t type, void(*c)())
-  {
-    this->wrapped = [[OBJCButton alloc] initWithTitle:t frame:rect->Object() type:type callback:c];
-    this->type = type;
-  }
-
-  public: Button(const char* path, int x, int y, int8_t t, void(*c)())
-  {
-    this->wrapped = [[OBJCButton alloc] initWithImagePath:path xPos:x yPos:y type:t callback:c];
-    this->type = t;
-  }
-
-  public: void show(Window* window)
-  {
-    [this->wrapped show:[window->Object() Object]];
-  }
+  public: Button(const char* t, int x, int y, int w, int h, int8_t type, void(*c)()){this->wrapped = [[OBJCButton alloc] initWithTitle:t xPos:x yPos:y width:w height:h type:type callback:c];}
+  public: Button(const char* t, GRect* rect, int8_t type, void(*c)()){this->wrapped = [[OBJCButton alloc] initWithTitle:t frame:rect->Object() type:type callback:c];}
+  public: Button(const char* path, int x, int y, int8_t t, void(*c)()){this->wrapped = [[OBJCButton alloc] initWithImagePath:path xPos:x yPos:y type:t callback:c];}
+  public: void show(Window* window){[this->wrapped show:[window->Object() Object]];}
 };
 #endif
