@@ -6,5 +6,5 @@
 #include "CPP/MainMenu.h"
 #include "CPP/GRect.h"
 #include "CPP/Button.h"
-#include "Assets/_Scripts/CPP/Colour.h"
+#include "CPP/Colour.h"
 #endif

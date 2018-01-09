@@ -10,13 +10,13 @@
   FWindow* window;
   OBJCMainMenu* mainMenu;
 }
--(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h style:(int8_t)s;
+-(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h style:(int16_t)s;
 -(void)addMenu:(OBJCMenuItem*)itemToAdd;
 -(FWindow*)Object;
 @end
 
 @implementation OBJCWindow
--(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h style:(int8_t)s
+-(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h style:(int16_t)s
 {
   if (!(self = [super init]))
     return nil;
@@ -48,7 +48,6 @@
   NSRect frame = NSMakeRect(x, y, w, h);
   NSRect rect = [FWindow contentRectForFrameRect:frame styleMask:s];
 
-  // NSLog(@"%i", NSWindowStyleMaskBorderless);
 
   self->window = [[[FWindow alloc] initWithContentRect:rect styleMask:s backing:NSBackingStoreBuffered defer:NO] autorelease];
   [self->window makeKeyAndOrderFront: self->window];
