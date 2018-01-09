@@ -26,8 +26,9 @@ int main(int argc, char* argv[])
   MenuItem* stopMenu = new MenuItem("New", createFile, "n");
   fileMenu->addMenuItem(stopMenu->Object());
 
-  Button* btn = new Button("Close", 5, 5, 100, 30, callback);
-  btn->show(window);
+  GRect* closeRect = new GRect(5, 5, 100, 30);
+  Button* closeBtn = new Button("Close", closeRect, STANDARD_BUTTON, callback);
+  closeBtn->show(window);
 
   window->run();
   return 0;
