@@ -2,6 +2,7 @@
 #define WINDOW_H
 
 #import "../OBJC/OBJCWindow.m"
+#import "../OBJC/OBJCOpenGLWindow.m"
 #include "../CPP/Colour.h"
 
 #define WINDOWSTYLE_BORDERLESS (0<<0) //Window without titlebar
@@ -20,12 +21,12 @@
 
 class Window
 {
-  private: OBJCWindow* window;
-  public: OBJCWindow* Object()const{return this->window;}
+  private: OBJCOpenGLWindow* window;
+  public: OBJCOpenGLWindow* Object()const{return this->window;}
 
   public: Window(const char* title, int x, int y, int w, int h, int16_t s)
   {
-    this->window = [[OBJCWindow alloc] initWithTitle:title xPos:x yPos:y width:w height:h style:s];
+    this->window = [[OBJCOpenGLWindow alloc] initWithTitle:title xPos:x yPos:y width:w height:h style:s];
   }
 
   public: void setBackgroundColor(Colour* colour)

@@ -9,6 +9,7 @@
 {
   FWindow* window;
   OBJCMainMenu* mainMenu;
+  NSRect rect;
 }
 -(id)initWithTitle:(const char*)title xPos:(int)x yPos:(int)y width:(int)w height:(int)h style:(int16_t)s;
 -(void)addMenu:(OBJCMenuItem*)itemToAdd;
@@ -27,10 +28,9 @@
 
   //Main application
   NSApplication* application = [NSApplication sharedApplication];
-  [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
   [NSApp finishLaunching];
 
-  //Main OBJCMenu
+  /*---------------Main Menu------------------*/
   self->mainMenu = [[OBJCMainMenu alloc] init];
 
   OBJCMenuItem* programItem = [[OBJCMenuItem alloc] init];
@@ -43,22 +43,24 @@
   [programMenu addMenuItem:quitItem];
 
   [NSApp setMainMenu:[self->mainMenu mainMenu]];
+  /*--------------------------------------------*/
 
-
+  /*----------------Create window----------------*/
   NSRect frame = NSMakeRect(x, y, w, h);
-  NSRect rect = [FWindow contentRectForFrameRect:frame styleMask:s];
+  self->rect = [FWindow contentRectForFrameRect:frame styleMask:s];
 
-
-  self->window = [[[FWindow alloc] initWithContentRect:rect styleMask:s backing:NSBackingStoreBuffered defer:NO] autorelease];
+  self->window = [[[FWindow alloc] initWithContentRect:self->rect styleMask:s backing:NSBackingStoreBuffered defer:NO] autorelease];
   [self->window makeKeyAndOrderFront: self->window];
   [self->window setTitle:appTitle];
-
   [self->window setBackgroundColor: [OBJCColour colourWithRedInt:200 green:77 blue:77 alpha:255]];
+  /*--------------------------------------------*/
 
   NSWindowController* windowController = [[[NSWindowController alloc] initWithWindow:self->window] autorelease];
+  [NSApp setActivationPolicy: NSApplicationActivationPolicyRegular];
 
   // Close window
   // [self->window close];
+
   [self->window orderFrontRegardless];
   [pool drain];
 

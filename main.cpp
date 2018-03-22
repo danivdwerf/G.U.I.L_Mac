@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
   GRect* closeRect = new GRect(5, 5, 100, 30);
   Button* closeBtn = new Button("Close", closeRect, STANDARD_BUTTON, callback);
   closeBtn->show(window);
-
+  
   window->run();
   return 0;
 }

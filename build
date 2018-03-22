@@ -1,1 +1,1 @@
-g++ -x objective-c++ main.cpp -o prog -framework Cocoa
+g++ -x objective-c++ main.cpp -o prog -framework Cocoa -framework OpenGL -framework Quartz
